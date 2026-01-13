@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TATLI | Eat. Drink. Vibe.</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600&family=Oswald:wght@500;700&family=Permanent+Marker&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        black: '#000000',
+                        white: '#ffffff',
+                        offwhite: '#f9f9f9'
+                    },
+                    fontFamily: {
+                        sans: ['Manrope', 'sans-serif'],
+                        header: ['Oswald', 'sans-serif'],
+                        brush: ['Permanent Marker', 'cursive'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* SMOOTH SCROLL & GLOBAL */
+        html { scroll-behavior: smooth; }
+        body { background-color: #ffffff; color: #000000; overflow-x: hidden; }
+
+        /* BRUSH STROKE EFFECT */
+        .brush-highlight {
+            position: relative;
+            z-index: 10;
+            color: white;
+            padding: 0 10px;
+        }
+        .brush-highlight::before {
+            content: '';
+            position: absolute;
+            top: 5px; left: -5px; right: -10px; bottom: 2px;
+            background: black;
+            z-index: -1;
+            transform: rotate(-1deg);
+            clip-path: polygon(1% 10%, 99% 0%, 100% 90%, 2% 100%);
+        }
+
+        /* CUSTOM SCROLLBAR HIDE */
+        .hide-scroll::-webkit-scrollbar { display: none; }
+        .hide-scroll { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* IMAGE HOVER EFFECTS */
+        .img-zoom-container { overflow: hidden; }
+        .img-zoom { transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+        .group:hover .img-zoom { transform: scale(1.1); }
+
+        /* FORM INPUT STYLING */
+        .input-minimal {
+            background: transparent;
+            border-bottom: 2px solid #e5e5e5;
+            padding: 1rem 0;
+            width: 100%;
+            transition: border-color 0.3s;
+            border-radius: 0;
+            outline: none;
+        }
+        .input-minimal:focus { border-color: #000000; }
+        
+        /* WAVY PATTERN CSS */
+        .wavy-border {
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='20' viewBox='0 0 100 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M21.184 20c.357-.13.72-.264 1.088-.402l1.768-.661C33.64 15.347 39.647 14 50 14c10.271 0 15.362 1.222 24.629 4.928.955.383 1.869.74 2.75 1.072h6.225c-2.51-.73-5.139-1.691-8.233-2.928C65.888 12.878 61.411 11 50 11c-11.411 0-15.888 1.878-24.37 5.072l-1.004.38c-3.114 1.248-6.704 2.867-9.626 3.548h6.184z' fill='%23000000' fill-opacity='1' fill-rule='evenodd'/%3E%3C/svg%3E");
+            height: 20px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <nav class="fixed w-full z-50 bg-white/95 backdrop-blur-sm border-b border-gray-100 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <button class="md:hidden">
+                <i data-lucide="menu" class="w-8 h-8"></i>
+            </button>
+
+            <a href="#" class="font-header text-4xl font-bold tracking-tighter">TATLI<span class="text-xs align-top font-sans font-normal tracking-wide ml-1">NG</span></a>
+            
+            <div class="hidden md:flex gap-10 font-sans text-xs font-bold tracking-[0.2em] uppercase">
+                <a href="#about" class="hover:line-through decoration-2">Experience</a>
+                <a href="#menu" class="hover:line-through decoration-2">Menu</a>
+                <a href="#gallery" class="hover:line-through decoration-2">Gallery</a>
+                <a href="#contact" class="hover:line-through decoration-2">Contact</a>
+            </div>
+
+            <a href="#reservations" class="hidden md:block bg-black text-white px-8 py-3 font-header uppercase tracking-wider text-sm hover:bg-gray-800 transition shadow-lg shadow-gray-200">
+                Book A Table
+            </a>
+            
+            <div class="md:hidden">
+                 <a href="#reservations" class="text-xs font-bold border border-black px-3 py-2 uppercase">Book</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="relative pt-24 min-h-screen flex flex-col md:flex-row">
+        <div class="w-full md:w-1/2 flex flex-col justify-center px-6 md:px-20 py-20 bg-white relative z-10">
+            <h2 class="font-brush text-2xl mb-4 text-gray-800 rotate-1">Abuja's Newest Vibe</h2>
+            <h1 class="font-header text-7xl md:text-9xl leading-[0.9] mb-8">
+                EAT.<br>
+                DRINK.<br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-black to-gray-500">REPEAT.</span>
+            </h1>
+            <p class="font-sans text-lg text-gray-600 max-w-md mb-10 leading-relaxed">
+                Experience the intersection of brutalist design and comfort dining. From loaded fries to artisanal mocktails, welcome to the new standard in Wuse.
+            </p>
+            <div class="flex gap-6">
+                <a href="#menu" class="border-b-2 border-black pb-1 font-bold text-sm tracking-widest uppercase hover:text-gray-600 transition">View Full Menu</a>
+                <a href="#reservations" class="border-b-2 border-transparent pb-1 font-bold text-sm tracking-widest uppercase text-gray-400 hover:text-black hover:border-black transition">Reservation</a>
+            </div>
+            
+            <div class="absolute bottom-10 left-10 opacity-10">
+                <svg width="100" height="100" viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="40" stroke="black" stroke-width="2" fill="none"/>
+                    <path d="M10 50 Q 50 10 90 50 T 10 50" stroke="black" stroke-width="2" fill="none"/>
+                </svg>
+            </div>
+        </div>
+
+        <div class="w-full md:w-1/2 h-[50vh] md:h-auto bg-gray-100 relative overflow-hidden">
+            <img src="IMG_1969.PNG" alt="Tatli Signature Waffles" class="w-full h-full object-cover object-center">
+            
+            <div class="absolute bottom-10 right-10 bg-white p-6 max-w-xs shadow-2xl border-l-4 border-black">
+                <p class="font-header text-xl mb-1">OPENING HOURS</p>
+                <p class="font-sans text-sm text-gray-600">Mon - Sun: 9:00 AM - 10:00 PM</p>
+            </div>
+        </div>
+    </header>
+
+    <div class="bg-black py-4 overflow-hidden whitespace-nowrap">
+        <div class="inline-block animate-marquee">
+            <span class="text-white font-header text-2xl mx-8 uppercase tracking-widest">BREAKFAST ALL DAY</span>
+            <span class="text-transparent stroke-text font-header text-2xl mx-8 uppercase tracking-widest" style="-webkit-text-stroke: 1px white;">COCKTAILS</span>
+            <span class="text-white font-header text-2xl mx-8 uppercase tracking-widest">SMOOTHIES</span>
+            <span class="text-transparent stroke-text font-header text-2xl mx-8 uppercase tracking-widest" style="-webkit-text-stroke: 1px white;">SOFT SERVE</span>
+            <span class="text-white font-header text-2xl mx-8 uppercase tracking-widest">GOOD VIBES</span>
+            <span class="text-transparent stroke-text font-header text-2xl mx-8 uppercase tracking-widest" style="-webkit-text-stroke: 1px white;">ABUJA</span>
+             <span class="text-white font-header text-2xl mx-8 uppercase tracking-widest">BREAKFAST ALL DAY</span>
+            <span class="text-transparent stroke-text font-header text-2xl mx-8 uppercase tracking-widest" style="-webkit-text-stroke: 1px white;">COCKTAILS</span>
+        </div>
+    </div>
+
+    <section class="py-20 px-6 max-w-7xl mx-auto" id="about">
+        <div class="flex flex-col md:flex-row justify-between items-end mb-12">
+            <div>
+                <h3 class="font-sans text-sm font-bold tracking-[0.3em] text-gray-400 mb-2">CURATED FAVORITES</h3>
+                <h2 class="font-header text-5xl md:text-6xl">MUST <span class="brush-highlight">TRY</span></h2>
+            </div>
+            <div class="flex gap-2 mt-6 md:mt-0">
+                <button class="p-3 border border-black hover:bg-black hover:text-white transition"><i data-lucide="arrow-left"></i></button>
+                <button class="p-3 border border-black hover:bg-black hover:text-white transition"><i data-lucide="arrow-right"></i></button>
+            </div>
+        </div>
+
+        <div class="flex gap-8 overflow-x-auto hide-scroll pb-10 snap-x">
+            <div class="min-w-[300px] md:min-w-[350px] snap-center group cursor-pointer">
+                <div class="h-[400px] overflow-hidden mb-4 bg-gray-100 relative">
+                    <img src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?q=80&w=2157&auto=format&fit=crop" class="w-full h-full object-cover img-zoom" alt="Cocktail">
+                    <div class="absolute top-4 right-4 bg-white px-3 py-1 text-xs font-bold uppercase">Signature</div>
+                </div>
+                <h3 class="font-header text-2xl mb-1">PORNSTAR MARTINI</h3>
+                <p class="font-sans text-sm text-gray-500 mb-2">Vodka, passion fruit, lime, pineapple.</p>
+                <p class="font-bold font-header">₦12,500</p>
+            </div>
+            
+            <div class="min-w-[300px] md:min-w-[350px] snap-center group cursor-pointer">
+                <div class="h-[400px] overflow-hidden mb-4 bg-gray-100 relative">
+                    <img src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?q=80&w=1980&auto=format&fit=crop" class="w-full h-full object-cover img-zoom" alt="Pancakes">
+                </div>
+                <h3 class="font-header text-2xl mb-1">BUTTERMILK PANCAKES</h3>
+                <p class="font-sans text-sm text-gray-500 mb-2">Served with Butter and Honey.</p>
+                <p class="font-bold font-header">₦9,500</p>
+            </div>
+
+            <div class="min-w-[300px] md:min-w-[350px] snap-center group cursor-pointer">
+                <div class="h-[400px] overflow-hidden mb-4 bg-gray-100 relative">
+                    <img src="IMG_1968.PNG" class="w-full h-full object-cover img-zoom" alt="Loaded Fries">
+                </div>
+                <h3 class="font-header text-2xl mb-1">COMBO LOADED FRIES</h3>
+                <p class="font-sans text-sm text-gray-500 mb-2">Beef mince, shredded chicken, cheddar.</p>
+                <p class="font-bold font-header">₦14,500</p>
+            </div>
+            
+             <div class="min-w-[300px] md:min-w-[350px] snap-center group cursor-pointer">
+                <div class="h-[400px] overflow-hidden mb-4 bg-gray-100 relative">
+                    <img src="https://images.unsplash.com/photo-1556689843-1563240e340a?q=80&w=2070&auto=format&fit=crop" class="w-full h-full object-cover img-zoom" alt="Soft Serve">
+                </div>
+                <h3 class="font-header text-2xl mb-1">CARAMEL SOFT SERVE</h3>
+                <p class="font-sans text-sm text-gray-500 mb-2">Creamy soft serve infused with caramel.</p>
+                <p class="font-bold font-header">₦10,000</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="menu" class="bg-offwhite py-24 relative">
+        <div class="wavy-border absolute top-0"></div>
+        
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="font-header text-5xl md:text-7xl mb-4">THE MENU</h2>
+                <p class="font-sans text-gray-500">A fusion of flavors designed for the modern palate.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-16">
+                <div>
+                    <h3 class="font-brush text-2xl mb-8 border-b-4 border-black inline-block">Breakfast</h3>
+                    <ul class="space-y-6">
+                        <li class="flex justify-between items-baseline group hover:opacity-70 transition">
+                            <div>
+                                <h4 class="font-header text-xl">Waffle House Platter</h4>
+                                <p class="text-xs text-gray-500 font-sans">Waffles, sausage, eggs, tenders</p>
+                            </div>
+                            <span class="font-bold font-header">₦19,500</span>
+                        </li>
+                        <li class="flex justify-between items-baseline group hover:opacity-70 transition">
+                            <div>
+                                <h4 class="font-header text-xl">French Toast</h4>
+                                <p class="text-xs text-gray-500 font-sans">Golden brown, fluffy eggs</p>
+                            </div>
+                            <span class="font-bold font-header">₦12,500</span>
+                        </li>
+                    </ul>
+
+                    <h3 class="font-brush text-2xl mb-8 mt-12 border-b-4 border-black inline-block">Mains</h3>
+                    <ul class="space-y-6">
+                        <li class="flex justify-between items-baseline group hover:opacity-70 transition">
+                            <div>
+                                <h4 class="font-header text-xl">Jumbo Prawn Alfredo</h4>
+                                <p class="text-xs text-gray-500 font-sans">Rich sauce, jumbo prawns</p>
+                            </div>
+                            <span class="font-bold font-header">₦22,500</span>
+                        </li>
+                        <li class="flex justify-between items-baseline group hover:opacity-70 transition">
+                            <div>
+                                <h4 class="font-header text-xl">Asun Twist Pasta</h4>
+                                <p class="text-xs text-gray-500 font-sans">Spicy goat meat, veggies</p>
+                            </div>
+                            <span class="font-bold font-header">₦14,500</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                     <h3 class="font-brush text-2xl mb-8 border-b-4 border-black inline-block">Sandwiches</h3>
+                    <ul class="space-y-6">
+                        <li class="flex justify-between items-baseline group hover:opacity-70 transition">
+                            <div>
+                                <h4 class="font-header text-xl">Chick N Cheddar Melt</h4>
+                                <p class="text-xs text-gray-500 font-sans">Crispy chicken, brioche, cheese</p>
+                            </div>
+                            <span class="font-bold font-header">₦10,500</span>
+                        </li>
+                    </ul>
+
+                    <h3 class="font-brush text-2xl mb-8 mt-12 border-b-4 border-black inline-block">Drinks</h3>
+                    <ul class="space-y-6">
+                        <li class="flex justify-between items-baseline group hover:opacity-70 transition">
+                            <div>
+                                <h4 class="font-header text-xl">Mango Bliss Smoothie</h4>
+                            </div>
+                            <span class="font-bold font-header">₦12,500</span>
+                        </li>
+                        <li class="flex justify-between items-baseline group hover:opacity-70 transition">
+                            <div>
+                                <h4 class="font-header text-xl">Long Island Iced Tea</h4>
+                            </div>
+                            <span class="font-bold font-header">₦12,500</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="text-center mt-16">
+                <a href="#" class="bg-black text-white px-10 py-4 font-header text-lg uppercase tracking-widest hover:bg-white hover:text-black border-2 border-black transition">
+                    Download PDF Menu
+                </a>
+            </div>
+        </div>
+         <div class="wavy-border absolute bottom-0 transform rotate-180"></div>
+    </section>
+
+    <section id="reservations" class="py-24 px-6 max-w-4xl mx-auto">
+        <div class="text-center mb-12">
+            <h3 class="font-sans text-sm font-bold tracking-[0.3em] text-gray-400 mb-2">SAVE YOUR SPOT</h3>
+            <h2 class="font-header text-5xl">RESERVATIONS</h2>
+        </div>
+        
+        <div class="bg-white p-8 md:p-12 border-2 border-black shadow-[10px_10px_0px_0px_rgba(0,0,0,1)]">
+            <form class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <label class="block font-header uppercase text-sm mb-2">Name</label>
+                    <input type="text" class="input-minimal" placeholder="Enter your name">
+                </div>
+                <div>
+                    <label class="block font-header uppercase text-sm mb-2">Phone</label>
+                    <input type="tel" class="input-minimal" placeholder="080...">
+                </div>
+                <div>
+                    <label class="block font-header uppercase text-sm mb-2">Date</label>
+                    <input type="date" class="input-minimal">
+                </div>
+                <div>
+                    <label class="block font-header uppercase text-sm mb-2">Guests</label>
+                    <select class="input-minimal bg-transparent">
+                        <option>2 People</option>
+                        <option>3 People</option>
+                        <option>4 People</option>
+                        <option>5+ (Large Party)</option>
+                    </select>
+                </div>
+                <div class="md:col-span-2">
+                     <label class="block font-header uppercase text-sm mb-2">Special Request</label>
+                     <textarea class="input-minimal" rows="2" placeholder="Birthday, Anniversary, Allergies..."></textarea>
+                </div>
+                <div class="md:col-span-2 mt-4">
+                    <button class="w-full bg-black text-white py-5 font-header text-xl uppercase tracking-widest hover:bg-gray-800 transition">
+                        Confirm Booking
+                    </button>
+                </div>
+            </form>
+            <p class="text-center mt-6 font-sans text-sm text-gray-500">Prefer WhatsApp? <a href="#" class="underline font-bold text-black">Click here to chat.</a></p>
+        </div>
+    </section>
+
+    <section id="gallery" class="py-20 px-4 max-w-7xl mx-auto">
+        <div class="text-center mb-12">
+             <h2 class="font-header text-5xl md:text-6xl mb-4">#TATLI<span class="text-gray-400">ABUJA</span></h2>
+             <p class="font-sans">Follow the vibe on Instagram</p>
+        </div>
+        
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 h-[600px] md:h-[500px]">
+            <div class="col-span-1 row-span-2 relative group overflow-hidden">
+                <img src="IMG_1974.PNG" class="w-full h-full object-cover img-zoom" alt="Drink">
+                <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-white font-brush text-2xl">Cheers</div>
+            </div>
+            <div class="col-span-1 md:col-span-2 row-span-1 relative group overflow-hidden">
+                <img src="IMG_1977.PNG" class="w-full h-full object-cover img-zoom" alt="Interior">
+            </div>
+            <div class="col-span-1 row-span-1 relative group overflow-hidden">
+                <img src="IMG_1976.PNG" class="w-full h-full object-cover img-zoom" alt="Food">
+            </div>
+            <div class="col-span-1 row-span-1 relative group overflow-hidden">
+                <img src="IMG_1971.PNG" class="w-full h-full object-cover img-zoom" alt="Food">
+            </div>
+            <div class="col-span-1 row-span-1 relative group overflow-hidden">
+                <img src="IMG_1970.PNG" class="w-full h-full object-cover img-zoom" alt="People">
+            </div>
+             <div class="col-span-1 row-span-1 relative group overflow-hidden">
+                <img src="IMG_1973.PNG" class="w-full h-full object-cover img-zoom" alt="Coffee">
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact" class="bg-black text-white pt-20 pb-10 border-t-8 border-white">
+        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-12 mb-16">
+            
+            <div>
+                <h2 class="font-header text-6xl mb-6">TATLI.</h2>
+                <p class="font-sans text-gray-400 text-sm leading-relaxed mb-6">
+                    Redefining casual dining in Abuja. Minimalist aesthetics, maximalist flavors.
+                </p>
+                <div class="flex gap-4">
+                    <a href="https://www.instagram.com/tatli.ng/" class="w-10 h-10 border border-white flex items-center justify-center hover:bg-white hover:text-black transition rounded-full"><i data-lucide="instagram" class="w-4 h-4"></i></a>
+                    <a href="#" class="w-10 h-10 border border-white flex items-center justify-center hover:bg-white hover:text-black transition rounded-full"><i data-lucide="twitter" class="w-4 h-4"></i></a>
+                    <a href="#" class="w-10 h-10 border border-white flex items-center justify-center hover:bg-white hover:text-black transition rounded-full"><i data-lucide="facebook" class="w-4 h-4"></i></a>
+                </div>
+            </div>
+
+            <div>
+                <h4 class="font-header text-xl mb-6 uppercase tracking-wider">Explore</h4>
+                <ul class="space-y-4 font-sans text-sm text-gray-400">
+                    <li><a href="#" class="hover:text-white transition">Our Story</a></li>
+                    <li><a href="#menu" class="hover:text-white transition">Full Menu</a></li>
+                    <li><a href="#reservations" class="hover:text-white transition">Private Dining</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="font-header text-xl mb-6 uppercase tracking-wider">Visit Us</h4>
+                <p class="font-sans text-sm text-gray-400 mb-2">Abuja, Nigeria</p>
+                <p class="font-sans text-sm text-gray-400 mb-6">Wuse 2 (Near Domino's)</p>
+                
+                <h4 class="font-header text-xl mb-4 uppercase tracking-wider">Opening Hours</h4>
+                <p class="font-sans text-sm text-gray-400">Mon - Sun</p>
+                <p class="font-sans text-sm text-white">09:00 AM - 10:00 PM</p>
+            </div>
+
+            <div>
+                <h4 class="font-header text-xl mb-6 uppercase tracking-wider">The Inner Circle</h4>
+                <p class="font-sans text-sm text-gray-400 mb-4">Subscribe for exclusive menu drops and private events.</p>
+                <form class="flex border-b border-gray-600 pb-2">
+                    <input type="email" placeholder="Email Address" class="bg-transparent w-full outline-none text-white placeholder-gray-600 font-sans">
+                    <button class="font-header uppercase text-sm hover:text-gray-300">Join</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="border-t border-gray-900 pt-8 text-center font-sans text-xs text-gray-600 uppercase tracking-widest">
+            &copy; 2026 Tatli Nigeria. Designed for the bold by Pyrexx.
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
